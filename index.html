@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitTrack – Legal & Privacy Center</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0D1117;
+      color: #E6EDF3;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      background: #161B22;
+      border-bottom: 1px solid #21262D;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #1DF994;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .topbar span { color: #8B949E; }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(180deg, #161B22 0%, #0D1117 100%);
+      border-bottom: 1px solid #21262D;
+      padding: 40px 20px 30px;
+      text-align: center;
+    }
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(29,249,148,0.08);
+      border: 1px solid rgba(29,249,148,0.2);
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-size: 12px;
+      color: #1DF994;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .header h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #E6EDF3;
+      margin-bottom: 10px;
+    }
+    .header h1 span { color: #1DF994; }
+    .header p {
+      color: #8B949E;
+      font-size: 14px;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* TABS */
+    .tabs-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #161B22;
+      border-bottom: 1px solid #21262D;
+      padding: 12px 16px;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 18px;
+      border-radius: 10px;
+      border: 1px solid #21262D;
+      background: #0D1117;
+      color: #8B949E;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover { border-color: #1DF994; color: #E6EDF3; }
+    .tab-btn.active {
+      background: linear-gradient(135deg, rgba(29,249,148,0.15), rgba(13,191,111,0.08));
+      border-color: rgba(29,249,148,0.4);
+      color: #1DF994;
+    }
+
+    /* CONTENT */
+    .content {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 30px 16px 60px;
+    }
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: linear-gradient(135deg, rgba(29,249,148,0.06), rgba(13,191,111,0.02));
+      border: 1px solid rgba(29,249,148,0.15);
+      border-radius: 16px;
+      padding: 28px 24px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .page-header .icon { font-size: 40px; margin-bottom: 10px; display: block; }
+    .page-header h2 { font-size: 22px; font-weight: 800; color: #E6EDF3; margin-bottom: 8px; }
+    .page-header p { font-size: 13px; color: #8B949E; line-height: 1.65; max-width: 520px; margin: 0 auto; }
+
+    /* SECTION */
+    .section {
+      background: #161B22;
+      border: 1px solid #21262D;
+      border-radius: 14px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 20px;
+      border-bottom: 1px solid #21262D;
+      font-size: 15px;
+      font-weight: 700;
+      color: #E6EDF3;
+      background: linear-gradient(90deg, rgba(29,249,148,0.04) 0%, transparent 100%);
+    }
+    .section-title .icon { font-size: 18px; }
+    .section-body { padding: 20px; }
+    .section-body p { color: #8B949E; font-size: 14px; line-height: 1.65; margin-bottom: 14px; }
+    .section-body h3 { color: #E6EDF3; font-size: 14px; font-weight: 700; margin: 20px 0 10px; }
+    .section-body h3:first-child { margin-top: 0; }
+
+    /* BULLET */
+    .bullet-group { display: flex; flex-direction: column; gap: 0; }
+    .bullet {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 8px 0;
+      border-bottom: 1px solid #21262D;
+      font-size: 13px;
+      color: #8B949E;
+      line-height: 1.6;
+    }
+    .bullet:last-child { border-bottom: none; }
+    .bullet-arrow { color: #1DF994; font-size: 13px; margin-top: 1px; flex-shrink: 0; }
+    .bullet-arrow.warn { color: #f78166; }
+    .bullet strong { color: #E6EDF3; }
+
+    /* CALLOUT */
+    .callout {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      background: rgba(29,249,148,0.06);
+      border: 1px solid rgba(29,249,148,0.18);
+      border-radius: 10px;
+      padding: 13px 16px;
+      margin-top: 14px;
+      font-size: 13px;
+      color: #8B949E;
+      line-height: 1.6;
+    }
+    .callout .ci { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .callout strong { color: #E6EDF3; }
+    .callout-warning {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      background: rgba(247,129,102,0.07);
+      border: 1px solid rgba(247,129,102,0.25);
+      border-radius: 10px;
+      padding: 13px 16px;
+      margin: 14px 0;
+      font-size: 13px;
+      color: #8B949E;
+      line-height: 1.6;
+    }
+    .callout-warning .ci { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .callout-danger {
+      background: rgba(247,129,102,0.08);
+      border: 1px solid rgba(247,129,102,0.3);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      color: #f78166;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    /* INFO CARD */
+    .info-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      border-bottom: 1px solid #21262D;
+      font-size: 13px;
+    }
+    .info-card:last-child { border-bottom: none; }
+    .info-card-label { color: #8B949E; }
+    .info-card-value { color: #E6EDF3; font-weight: 600; }
+    .info-cards-wrap {
+      background: #0D1117;
+      border: 1px solid #21262D;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    /* THIRD PARTY CARD */
+    .third-party-card {
+      background: #0D1117;
+      border: 1px solid #21262D;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .third-party-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid #21262D;
+    }
+    .third-party-card-head-name { font-size: 14px; font-weight: 700; color: #E6EDF3; }
+    .third-party-card-link {
+      font-size: 11px;
+      color: #1DF994;
+      text-decoration: none;
+      background: rgba(29,249,148,0.08);
+      border: 1px solid rgba(29,249,148,0.2);
+      border-radius: 999px;
+      padding: 2px 10px;
+      font-weight: 600;
+    }
+    .third-party-card-link:hover { background: rgba(29,249,148,0.15); }
+    .third-party-card-body { padding: 10px 16px; }
+    .third-party-card-company { font-size: 12px; color: #1DF994; font-weight: 600; margin-bottom: 4px; }
+    .third-party-card-desc { font-size: 13px; color: #8B949E; }
+
+    /* STORAGE CARD */
+    .storage-card {
+      background: #0D1117;
+      border: 1px solid #21262D;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .storage-card-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-bottom: 1px solid #21262D;
+      background: linear-gradient(90deg, rgba(29,249,148,0.05) 0%, transparent 100%);
+    }
+    .storage-card-head .sci { font-size: 22px; }
+    .storage-card-head-title { font-size: 14px; font-weight: 700; color: #E6EDF3; }
+    .storage-card-head-sub { font-size: 12px; color: #8B949E; }
+    .storage-card-body { padding: 12px 18px; }
+    .storage-item {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      padding: 5px 0;
+      border-bottom: 1px solid #21262D;
+      font-size: 13px;
+      color: #8B949E;
+      line-height: 1.6;
+    }
+    .storage-item:last-of-type { border-bottom: none; }
+    .storage-item-arrow { color: #1DF994; font-size: 13px; margin-top: 1px; flex-shrink: 0; }
+    .storage-note {
+      margin-top: 12px;
+      background: rgba(29,249,148,0.05);
+      border: 1px solid rgba(29,249,148,0.15);
+      border-radius: 8px;
+      padding: 8px 12px;
+      display: flex;
+      gap: 8px;
+      font-size: 12px;
+      color: #8B949E;
+      line-height: 1.6;
+    }
+
+    /* RETENTION TABLE */
+    .retention-table {
+      background: #0D1117;
+      border: 1px solid #21262D;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .retention-head {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: rgba(29,249,148,0.04);
+      border-bottom: 1px solid #21262D;
+    }
+    .retention-head span { font-size: 12px; font-weight: 700; color: #8B949E; text-transform: uppercase; letter-spacing: 0.8px; }
+    .retention-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 11px 14px;
+      border-bottom: 1px solid #21262D;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .retention-row:last-child { border-bottom: none; }
+    .retention-row-label { color: #8B949E; font-size: 13px; }
+    .retention-badge {
+      color: #1DF994;
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(29,249,148,0.08);
+      border: 1px solid rgba(29,249,148,0.2);
+      border-radius: 999px;
+      padding: 2px 10px;
+    }
+
+    /* COOKIE TABLE */
+    .cookie-table { background: #0D1117; border: 1px solid #21262D; border-radius: 10px; overflow: hidden; }
+    .cookie-row {
+      display: grid;
+      grid-template-columns: 1fr 80px 2fr auto;
+      gap: 8px;
+      padding: 11px 14px;
+      border-bottom: 1px solid #21262D;
+      align-items: center;
+      font-size: 13px;
+    }
+    .cookie-row:last-child { border-bottom: none; }
+    .cookie-row-head { background: rgba(29,249,148,0.04); font-weight: 700; color: #8B949E; font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; }
+    .cookie-name { color: #E6EDF3; font-weight: 600; }
+    .cookie-type {
+      color: #1DF994; font-size: 11px; font-weight: 600;
+      background: rgba(29,249,148,0.08); border: 1px solid rgba(29,249,148,0.15);
+      border-radius: 999px; padding: 2px 8px; text-align: center; white-space: nowrap;
+    }
+    .cookie-purpose { color: #8B949E; font-size: 12px; line-height: 1.5; }
+    .cookie-persist {
+      font-size: 11px; font-weight: 600; white-space: nowrap;
+      border-radius: 999px; padding: 2px 8px;
+    }
+    .cookie-persist.session { color: #8B949E; background: rgba(139,148,158,0.1); border: 1px solid rgba(139,148,158,0.15); }
+    .cookie-persist.persistent { color: #f78166; background: rgba(247,129,102,0.08); border: 1px solid rgba(247,129,102,0.2); }
+
+    /* DELETION STEPS */
+    .deletion-step {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 16px;
+      background: #0D1117;
+      border: 1px solid #21262D;
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 999px; flex-shrink: 0;
+      background: linear-gradient(135deg, #1DF994, #0dbf6f);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 14px; color: #0D1117;
+    }
+    .step-title { font-size: 14px; font-weight: 700; color: #E6EDF3; margin-bottom: 4px; }
+    .step-desc { font-size: 13px; color: #8B949E; line-height: 1.6; }
+
+    /* CONTACT CARD */
+    .contact-card {
+      background: linear-gradient(135deg, rgba(29,249,148,0.08), rgba(13,191,111,0.03));
+      border: 1px solid rgba(29,249,148,0.2);
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 30px;
+    }
+    .contact-card h3 { font-size: 16px; font-weight: 700; color: #E6EDF3; margin-bottom: 8px; }
+    .contact-card p { font-size: 13px; color: #8B949E; margin-bottom: 16px; line-height: 1.6; }
+    .contact-card a {
+      display: inline-block;
+      background: linear-gradient(135deg, #1DF994, #0dbf6f);
+      color: #0D1117;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+    }
+
+    /* FOOTER */
+    .footer {
+      border-top: 1px solid #21262D;
+      background: #161B22;
+      padding: 24px 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #8B949E;
+    }
+    .footer a { color: #1DF994; text-decoration: none; }
+
+    @media (max-width: 480px) {
+      .header h1 { font-size: 22px; }
+      .tab-btn { padding: 8px 13px; font-size: 12px; }
+      .cookie-row { grid-template-columns: 1fr 1fr; }
+      .cookie-persist { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    ⚡ LAST UPDATED: <span>June 1, 2025</span>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-badge">⚖️ Legal &amp; Privacy Center</div>
+    <h1>Fit<span>Track</span></h1>
+    <p>Everything you need to know about how FitTrack handles your data, your rights, and our commitments to you.</p>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-wrapper">
+    <button class="tab-btn active" onclick="showTab('privacy', this)">🔒 Privacy Policy</button>
+    <button class="tab-btn" onclick="showTab('terms', this)">📋 Terms of Service</button>
+    <button class="tab-btn" onclick="showTab('data', this)">🗄️ Data &amp; Cookies</button>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- ======================== PRIVACY POLICY ======================== -->
+    <div class="page active" id="page-privacy">
+
+      <div class="page-header">
+        <span class="icon">🔒</span>
+        <h2>Privacy Policy</h2>
+        <p>This policy explains what data FitTrack collects, why we collect it, how we use it, and the choices you have. We believe in full transparency because your health data is personal.</p>
+      </div>
+
+      <!-- Who We Are -->
+      <div class="section">
+        <div class="section-title"><span class="icon">🏢</span> Who We Are</div>
+        <div class="section-body">
+          <p>FitTrack is a nutrition tracking application developed and operated by LMLT. We are the data controller for information collected through the FitTrack mobile application.</p>
+          <div class="info-cards-wrap">
+            <div class="info-card"><span class="info-card-label">App Name</span><span class="info-card-value">FitTrack</span></div>
+            <div class="info-card"><span class="info-card-label">Developer</span><span class="info-card-value">LMLT</span></div>
+            <div class="info-card"><span class="info-card-label">Contact</span><span class="info-card-value">khalidothman2002@gmail.com</span></div>
+            <div class="info-card"><span class="info-card-label">Last Update</span><span class="info-card-value">June 1, 2025</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data We Collect -->
+      <div class="section">
+        <div class="section-title"><span class="icon">📊</span> Data We Collect</div>
+        <div class="section-body">
+          <h3>Account Information</h3>
+          <div class="bullet-group">
+            <div class="bullet"><span class="bullet-arrow">→</span><span><strong>Email address</strong> — used to create and identify your account</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span><strong>Display name</strong> — shown in your profile</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span><strong>Google account info</strong> — only if you sign in with Google (name, email, profile photo)</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span><strong>Password</strong> — stored securely by Firebase Authentication, we never see it in plain text</span></div>
+          </div>
+
+          <h3>Health &amp; Body Data</h3>
+          <div class="callout-warning"><span class="ci">⚠️</span><span>This data is sensitive. You provide it voluntarily to enable calorie and macro calculations. We do not share it with advertisers or third parties.</span></div>
+          <div class="bullet-group">
+            <div class="bullet"><span class="bullet-arrow">→</span><span><strong>Age, gender, height, weight</strong> — used to calculate your BMR and calorie targets</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span><strong>Fitness goal</strong> (Lose / Maintain / Gain) — used to adjust your daily targets</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span><strong>Activity level</strong> — used in your TDEE calculation</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span><strong>Daily calorie and macro intake</strong> — logged when you add meals</span></div>
+          </div>
+
+          <h3>Meal &amp; Food Data</h3>
+          <div class="bullet-group">
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Foods you log manually from our database</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Foods identified via AI photo scanning (image is processed server-side, not stored)</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Custom serving sizes you set</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Meal type (Breakfast, Lunch, Dinner, Snacks, Other)</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Historical daily progress (synced to your account)</span></div>
+          </div>
+
+          <h3>Usage Data (Automatic)</h3>
+          <div class="bullet-group">
+            <div class="bullet"><span class="bullet-arrow">→</span><span>App session data collected by Firebase Analytics</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Crash reports via Firebase Crashlytics</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Ad interaction data via Google AdMob (when you watch rewarded ads)</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Device type and OS version — for compatibility purposes only</span></div>
+          </div>
+
+          <div class="callout">
+            <span class="ci">📷</span>
+            <span><strong>Photo Scanning:</strong> When you scan a meal, your photo is sent to our secure Google Cloud Function which uses the Gemini AI API to identify food items. The image is not stored on our servers — it is processed in memory and immediately discarded after analysis.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- How We Use Your Data -->
+      <div class="section">
+        <div class="section-title"><span class="icon">⚙️</span> How We Use Your Data</div>
+        <div class="section-body">
+          <div class="bullet-group">
+            <div class="bullet"><span class="bullet-arrow">→</span><span>To calculate your personalized daily calorie and macro targets using the Mifflin-St Jeor formula</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>To track your daily nutrition progress against your goals</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>To display your historical progress and streak data</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>To sync your data across devices via Firebase</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>To identify foods in photos using AI (Gemini API via Cloud Functions)</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>To manage your scan balance and reward you for watching ads</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>To send you account-related communications (password reset, etc.)</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>To improve app stability via crash reports</span></div>
+          </div>
+          <div class="callout-warning">
+            <span class="ci">⚠️</span><span>We do NOT use your health data for advertising targeting. AdMob may show personalized ads based on general device data, but your body metrics and meal logs are never shared with advertisers.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Third-Party Services -->
+      <div class="section">
+        <div class="section-title"><span class="icon">🔗</span> Third-Party Services</div>
+        <div class="section-body">
+          <p>FitTrack uses the following third-party services. Each has their own privacy policy:</p>
+          <div class="third-party-card">
+            <div class="third-party-card-head"><span class="third-party-card-head-name">Firebase Authentication</span><a class="third-party-card-link" href="https://firebase.google.com/support/privacy" target="_blank">Privacy Policy ↗</a></div>
+            <div class="third-party-card-body"><div class="third-party-card-company">Google LLC</div><div class="third-party-card-desc">Secure account login and session management</div></div>
+          </div>
+          <div class="third-party-card">
+            <div class="third-party-card-head"><span class="third-party-card-head-name">Cloud Firestore</span><a class="third-party-card-link" href="https://firebase.google.com/support/privacy" target="_blank">Privacy Policy ↗</a></div>
+            <div class="third-party-card-body"><div class="third-party-card-company">Google LLC</div><div class="third-party-card-desc">Storing your profile, goals, and progress history</div></div>
+          </div>
+          <div class="third-party-card">
+            <div class="third-party-card-head"><span class="third-party-card-head-name">Google AdMob</span><a class="third-party-card-link" href="https://support.google.com/admob/answer/6128543" target="_blank">Privacy Policy ↗</a></div>
+            <div class="third-party-card-body"><div class="third-party-card-company">Google LLC</div><div class="third-party-card-desc">Displaying rewarded ads to earn scan credits</div></div>
+          </div>
+          <div class="third-party-card">
+            <div class="third-party-card-head"><span class="third-party-card-head-name">Google Sign-In</span><a class="third-party-card-link" href="https://policies.google.com/privacy" target="_blank">Privacy Policy ↗</a></div>
+            <div class="third-party-card-body"><div class="third-party-card-company">Google LLC</div><div class="third-party-card-desc">Optional one-tap sign-in with your Google account</div></div>
+          </div>
+          <div class="third-party-card">
+            <div class="third-party-card-head"><span class="third-party-card-head-name">Gemini API</span><a class="third-party-card-link" href="https://ai.google.dev/gemini-api/terms" target="_blank">Privacy Policy ↗</a></div>
+            <div class="third-party-card-body"><div class="third-party-card-company">Google LLC</div><div class="third-party-card-desc">AI-powered food identification from photos</div></div>
+          </div>
+          <div class="third-party-card">
+            <div class="third-party-card-head"><span class="third-party-card-head-name">USDA FoodData Central</span><a class="third-party-card-link" href="https://www.usda.gov/privacy-policy" target="_blank">Privacy Policy ↗</a></div>
+            <div class="third-party-card-body"><div class="third-party-card-company">US Department of Agriculture</div><div class="third-party-card-desc">Nutrition data for food search</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Storage & Security -->
+      <div class="section">
+        <div class="section-title"><span class="icon">🔐</span> Data Storage &amp; Security</div>
+        <div class="section-body">
+          <div class="bullet-group">
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Your data is stored on Google Cloud servers via Firebase (us-central1 region)</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Data is encrypted in transit using TLS/HTTPS</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Data is encrypted at rest by Firebase/Google Cloud infrastructure</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>A local cache is stored on your device using Hive (encrypted on-device storage)</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Passwords are never stored in plain text — Firebase Authentication handles this</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Food scan images are never written to disk — processed in memory only</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>We implement Firestore Security Rules to ensure users can only access their own data</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Your Rights -->
+      <div class="section">
+        <div class="section-title"><span class="icon">⚖️</span> Your Rights</div>
+        <div class="section-body">
+          <p>Depending on your location, you may have the following rights regarding your personal data:</p>
+          <div class="bullet-group">
+            <div class="bullet"><span class="bullet-arrow">→</span><span><strong>Right to Access</strong> — You can request a copy of all data we hold about you</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span><strong>Right to Rectification</strong> — You can correct inaccurate data in your profile settings</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span><strong>Right to Erasure</strong> — You can delete your account and all associated data at any time</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span><strong>Right to Portability</strong> — You can request your data in a structured, machine-readable format</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span><strong>Right to Object</strong> — You can object to certain types of processing of your data</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span><strong>Right to Withdraw Consent</strong> — You can withdraw consent at any time by deleting your account</span></div>
+          </div>
+          <div class="callout">
+            <span class="ci">ℹ️</span>
+            <span>To exercise any of these rights, contact us at <strong>khalidothman2002@gmail.com</strong>. We will respond within 30 days.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Children's Privacy -->
+      <div class="section">
+        <div class="section-title"><span class="icon">👶</span> Children's Privacy</div>
+        <div class="section-body">
+          <p>FitTrack is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13.</p>
+          <p>If you are a parent or guardian and believe your child has provided us with personal information, please contact us at khalidothman2002@gmail.com and we will delete the information immediately.</p>
+        </div>
+      </div>
+
+      <!-- Changes to This Policy -->
+      <div class="section">
+        <div class="section-title"><span class="icon">📝</span> Changes to This Policy</div>
+        <div class="section-body">
+          <p>We may update this Privacy Policy from time to time. When we do, we will update the "Last Updated" date at the top of this page and notify users via the app.</p>
+          <p>Continued use of FitTrack after changes constitutes acceptance of the updated policy.</p>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <h3>📬 Questions about Privacy?</h3>
+        <p>If you have any questions about this Privacy Policy or how we handle your data, please reach out to us directly.</p>
+        <a href="mailto:khalidothman2002@gmail.com">Contact Us</a>
+      </div>
+    </div>
+
+    <!-- ======================== TERMS OF SERVICE ======================== -->
+    <div class="page" id="page-terms">
+
+      <div class="page-header">
+        <span class="icon">📋</span>
+        <h2>Terms of Service</h2>
+        <p>By downloading, installing, or using FitTrack, you agree to be bound by these Terms of Service. Please read them carefully.</p>
+      </div>
+
+      <!-- Acceptance -->
+      <div class="section">
+        <div class="section-title"><span class="icon">✅</span> Acceptance of Terms</div>
+        <div class="section-body">
+          <p>By accessing or using FitTrack ("the App"), you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these terms, do not use the App.</p>
+          <p>These terms apply to all users of the App, including users who contribute content, information, and other materials.</p>
+        </div>
+      </div>
+
+      <!-- Description of Service -->
+      <div class="section">
+        <div class="section-title"><span class="icon">📱</span> Description of Service</div>
+        <div class="section-body">
+          <p>FitTrack is a personal nutrition tracking application that helps users:</p>
+          <div class="bullet-group">
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Track daily calorie and macro intake</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Set personalized nutrition targets based on body data and fitness goals</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Identify food items and their nutritional content via AI-powered photo scanning</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Search a nutritional database powered by USDA FoodData Central</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>View historical progress and streak data</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Earn additional AI scan credits by watching rewarded advertisements</span></div>
+          </div>
+          <div class="callout-warning">
+            <span class="ci">⚠️</span><span>FitTrack is a wellness tool, not a medical application. The nutritional information and calorie calculations are estimates and should not be used as a substitute for professional medical or dietary advice.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Accounts -->
+      <div class="section">
+        <div class="section-title"><span class="icon">👤</span> User Accounts</div>
+        <div class="section-body">
+          <h3>Registration</h3>
+          <div class="bullet-group">
+            <div class="bullet"><span class="bullet-arrow">→</span><span>You must provide a valid email address to create an account</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>You are responsible for maintaining the confidentiality of your password</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>You must be at least 13 years of age to use FitTrack</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>One person may not maintain more than one active account</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>You are responsible for all activities that occur under your account</span></div>
+          </div>
+          <h3>Account Termination</h3>
+          <div class="bullet-group">
+            <div class="bullet"><span class="bullet-arrow">→</span><span>You may delete your account at any time via Profile → Delete Account</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>We reserve the right to suspend or terminate accounts that violate these terms</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Upon termination, your right to use the App ceases immediately</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Data deletion upon account closure is described in our Privacy Policy</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scan Credits -->
+      <div class="section">
+        <div class="section-title"><span class="icon">📷</span> Scan Credits &amp; Advertising</div>
+        <div class="section-body">
+          <p>FitTrack uses an AI-powered food scanning feature that requires "scan credits":</p>
+          <div class="bullet-group">
+            <div class="bullet"><span class="bullet-arrow">→</span><span><strong>New accounts</strong> receive 2 free scan credits upon registration</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Each successful food scan consumes 1 credit</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>If a scan fails due to a technical error (not network), no credit is deducted</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>If Gemini cannot identify food in the image, 1 credit is still deducted</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Users may earn +2 credits by watching a rewarded advertisement</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Scan credits have no monetary value and cannot be transferred, refunded, or exchanged</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>We reserve the right to adjust the credit system at any time</span></div>
+          </div>
+          <div class="callout">
+            <span class="ci">📢</span>
+            <span><strong>Advertising:</strong> FitTrack displays rewarded advertisements through Google AdMob. These ads are optional — you only watch them to earn scan credits. We do not show interstitial or banner ads.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Acceptable Use -->
+      <div class="section">
+        <div class="section-title"><span class="icon">🚫</span> Acceptable Use</div>
+        <div class="section-body">
+          <p>You agree <strong>NOT</strong> to:</p>
+          <div class="bullet-group">
+            <div class="bullet"><span class="bullet-arrow warn">✗</span><span>Use the App for any unlawful purpose or in violation of any regulations</span></div>
+            <div class="bullet"><span class="bullet-arrow warn">✗</span><span>Attempt to reverse engineer, decompile, or disassemble the App</span></div>
+            <div class="bullet"><span class="bullet-arrow warn">✗</span><span>Use automated tools to make excessive API requests or scrape data</span></div>
+            <div class="bullet"><span class="bullet-arrow warn">✗</span><span>Attempt to gain unauthorized access to any part of the App or its servers</span></div>
+            <div class="bullet"><span class="bullet-arrow warn">✗</span><span>Upload images that are not related to food for the purpose of scanning</span></div>
+            <div class="bullet"><span class="bullet-arrow warn">✗</span><span>Create multiple accounts to exploit free scan credits</span></div>
+            <div class="bullet"><span class="bullet-arrow warn">✗</span><span>Interfere with or disrupt the integrity or performance of the App</span></div>
+            <div class="bullet"><span class="bullet-arrow warn">✗</span><span>Use the App in any manner that could damage, disable, or impair our servers</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Health Disclaimer -->
+      <div class="section">
+        <div class="section-title"><span class="icon">⚕️</span> Health Disclaimer</div>
+        <div class="section-body">
+          <div class="callout-danger">⚠️ IMPORTANT: FitTrack is not a medical device and is not intended to diagnose, treat, cure, or prevent any disease or health condition.</div>
+          <div class="bullet-group">
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Calorie and macro calculations are estimates based on established formulas (Mifflin-St Jeor)</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Nutritional data sourced from USDA FoodData Central may contain inaccuracies</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>AI food identification may not always be accurate — always verify nutritional information</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Always consult a qualified healthcare professional before making significant dietary changes</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Do not use FitTrack as a substitute for professional medical advice</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>If you have a medical condition, eating disorder, or specific dietary needs, consult your doctor</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Intellectual Property -->
+      <div class="section">
+        <div class="section-title"><span class="icon">©️</span> Intellectual Property</div>
+        <div class="section-body">
+          <p>All content, features, and functionality of FitTrack — including but not limited to text, graphics, logos, icons, and software — are the exclusive property of LMLT and are protected by applicable intellectual property laws.</p>
+          <div class="bullet-group">
+            <div class="bullet"><span class="bullet-arrow">→</span><span>You are granted a limited, non-exclusive, non-transferable license to use the App</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>You may not copy, modify, distribute, or create derivative works of the App</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>FitTrack name, logo, and branding are trademarks of LMLT</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>USDA nutritional data is public domain; Gemini AI is property of Google LLC</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Limitation of Liability -->
+      <div class="section">
+        <div class="section-title"><span class="icon">🛡️</span> Limitation of Liability</div>
+        <div class="section-body">
+          <p>To the maximum extent permitted by law, LMLT shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of FitTrack.</p>
+          <div class="bullet-group">
+            <div class="bullet"><span class="bullet-arrow">→</span><span>We are not liable for inaccurate nutritional data or AI scan errors</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>We are not liable for health outcomes resulting from use of the app</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>We are not liable for data loss due to circumstances beyond our control</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Our total liability shall not exceed the amount you paid to use the App in the past 12 months</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Changes to Terms -->
+      <div class="section">
+        <div class="section-title"><span class="icon">📝</span> Changes to Terms</div>
+        <div class="section-body">
+          <p>We reserve the right to modify these Terms of Service at any time. We will notify users of significant changes via the app or email. Continued use after changes constitutes acceptance of the new terms.</p>
+        </div>
+      </div>
+
+      <!-- Governing Law -->
+      <div class="section">
+        <div class="section-title"><span class="icon">🌍</span> Governing Law</div>
+        <div class="section-body">
+          <p>These Terms of Service shall be governed by and construed in accordance with applicable laws. Any disputes shall be resolved through good-faith negotiation, and if unresolved, through binding arbitration.</p>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <h3>📬 Questions about our Terms?</h3>
+        <p>If you have any questions about these Terms of Service, please contact us.</p>
+        <a href="mailto:khalidothman2002@gmail.com">Contact Us</a>
+      </div>
+    </div>
+
+    <!-- ======================== DATA & COOKIES ======================== -->
+    <div class="page" id="page-data">
+
+      <div class="page-header">
+        <span class="icon">🗄️</span>
+        <h2>Data &amp; Storage Policy</h2>
+        <p>A detailed breakdown of exactly what data FitTrack stores, where it lives, how long we keep it, and how to delete it.</p>
+      </div>
+
+      <!-- Data Storage Locations -->
+      <div class="section">
+        <div class="section-title"><span class="icon">🗄️</span> Data Storage Locations</div>
+        <div class="section-body">
+          <p>FitTrack stores data in three places:</p>
+
+          <div class="storage-card">
+            <div class="storage-card-head">
+              <span class="sci">📱</span>
+              <div><div class="storage-card-head-title">On Your Device (Hive)</div><div class="storage-card-head-sub">Local encrypted storage</div></div>
+            </div>
+            <div class="storage-card-body">
+              <div class="storage-item"><span class="storage-item-arrow">→</span><span>Your profile: name, age, weight, height, gender, activity level</span></div>
+              <div class="storage-item"><span class="storage-item-arrow">→</span><span>Today's progress: calories consumed, macros logged, meal list</span></div>
+              <div class="storage-item"><span class="storage-item-arrow">→</span><span>Historical daily progress (synced from Firestore)</span></div>
+              <div class="storage-item"><span class="storage-item-arrow">→</span><span>USDA food search cache (24-hour TTL, stored in SharedPreferences)</span></div>
+              <div class="storage-item"><span class="storage-item-arrow">→</span><span>App language preference (stored by easy_localization)</span></div>
+              <div class="storage-note"><span>ℹ️</span><span>This data is stored locally on your device. It is cleared when you delete the app or delete your account.</span></div>
+            </div>
+          </div>
+
+          <div class="storage-card">
+            <div class="storage-card-head">
+              <span class="sci">☁️</span>
+              <div><div class="storage-card-head-title">Firebase Cloud Firestore</div><div class="storage-card-head-sub">Cloud database</div></div>
+            </div>
+            <div class="storage-card-body">
+              <div class="storage-item"><span class="storage-item-arrow">→</span><span>Your user profile document (users/{uid})</span></div>
+              <div class="storage-item"><span class="storage-item-arrow">→</span><span>Daily progress subcollection (users/{uid}/daily_progress/{date})</span></div>
+              <div class="storage-item"><span class="storage-item-arrow">→</span><span>Goal settings: calorie target, macro targets, fitness goal</span></div>
+              <div class="storage-item"><span class="storage-item-arrow">→</span><span>Scan balance (how many AI scans you have remaining)</span></div>
+              <div class="storage-note"><span>ℹ️</span><span>Data is synced to Firestore for cross-device access and backup. Deleting your account removes this data permanently.</span></div>
+            </div>
+          </div>
+
+          <div class="storage-card">
+            <div class="storage-card-head">
+              <span class="sci">🔑</span>
+              <div><div class="storage-card-head-title">Firebase Authentication</div><div class="storage-card-head-sub">Auth service</div></div>
+            </div>
+            <div class="storage-card-body">
+              <div class="storage-item"><span class="storage-item-arrow">→</span><span>Email address</span></div>
+              <div class="storage-item"><span class="storage-item-arrow">→</span><span>Hashed password (if using email/password login)</span></div>
+              <div class="storage-item"><span class="storage-item-arrow">→</span><span>Google account link (if using Google Sign-In)</span></div>
+              <div class="storage-item"><span class="storage-item-arrow">→</span><span>Account creation timestamp</span></div>
+              <div class="storage-item"><span class="storage-item-arrow">→</span><span>Last sign-in timestamp</span></div>
+              <div class="storage-note"><span>ℹ️</span><span>Authentication data is managed by Google Firebase and is deleted when you delete your account.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Retention -->
+      <div class="section">
+        <div class="section-title"><span class="icon">⏱️</span> Data Retention</div>
+        <div class="section-body">
+          <p>How long we keep your data:</p>
+          <div class="retention-table">
+            <div class="retention-head"><span>Data Type</span><span>Retention Period</span></div>
+            <div class="retention-row"><span class="retention-row-label">Active account data (profile, goals)</span><span class="retention-badge">While account is active</span></div>
+            <div class="retention-row"><span class="retention-row-label">Daily progress history</span><span class="retention-badge">While account is active</span></div>
+            <div class="retention-row"><span class="retention-row-label">Crash & analytics data (Firebase)</span><span class="retention-badge">Up to 90 days</span></div>
+            <div class="retention-row"><span class="retention-row-label">Ad interaction data (AdMob)</span><span class="retention-badge">Per Google's policy</span></div>
+            <div class="retention-row"><span class="retention-row-label">Food scan images</span><span class="retention-badge">Never stored</span></div>
+            <div class="retention-row"><span class="retention-row-label">USDA search cache (device)</span><span class="retention-badge">24 hours</span></div>
+            <div class="retention-row"><span class="retention-row-label">All data after account deletion</span><span class="retention-badge">Immediately deleted</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cookies & Local Storage -->
+      <div class="section">
+        <div class="section-title"><span class="icon">🍪</span> Cookies &amp; Local Storage</div>
+        <div class="section-body">
+          <p>FitTrack is a mobile app (not a website), so we don't use traditional browser cookies. However, we use equivalent mobile storage mechanisms:</p>
+          <div class="cookie-table">
+            <div class="cookie-row cookie-row-head">
+              <span>Name</span><span>Type</span><span>Purpose</span><span>Duration</span>
+            </div>
+            <div class="cookie-row">
+              <span class="cookie-name">hive_box_user</span>
+              <span class="cookie-type">Local DB</span>
+              <span class="cookie-purpose">Stores your profile and daily data on-device</span>
+              <span class="cookie-persist persistent">Persistent</span>
+            </div>
+            <div class="cookie-row">
+              <span class="cookie-name">firebase_auth_token</span>
+              <span class="cookie-type">Auth Token</span>
+              <span class="cookie-purpose">Keeps you logged in securely</span>
+              <span class="cookie-persist persistent">Persistent</span>
+            </div>
+            <div class="cookie-row">
+              <span class="cookie-name">usda_cache</span>
+              <span class="cookie-type">Cache</span>
+              <span class="cookie-purpose">Caches food search results to reduce API calls</span>
+              <span class="cookie-persist session">24 hours</span>
+            </div>
+            <div class="cookie-row">
+              <span class="cookie-name">lang_pref</span>
+              <span class="cookie-type">Preference</span>
+              <span class="cookie-purpose">Stores your language preference</span>
+              <span class="cookie-persist persistent">Persistent</span>
+            </div>
+            <div class="cookie-row">
+              <span class="cookie-name">admob_data</span>
+              <span class="cookie-type">Advertising</span>
+              <span class="cookie-purpose">Google AdMob ad serving and frequency data</span>
+              <span class="cookie-persist persistent">Persistent</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- How to Delete Your Data -->
+      <div class="section">
+        <div class="section-title"><span class="icon">🗑️</span> How to Delete Your Data</div>
+        <div class="section-body">
+          <p>You have full control over your data. Here's how to delete it:</p>
+
+          <div class="deletion-step">
+            <div class="step-num">1</div>
+            <div><div class="step-title">Open FitTrack</div><div class="step-desc">Launch the FitTrack app on your device and make sure you're logged in.</div></div>
+          </div>
+          <div class="deletion-step">
+            <div class="step-num">2</div>
+            <div><div class="step-title">Go to Profile</div><div class="step-desc">Tap the Profile tab in the bottom navigation bar.</div></div>
+          </div>
+          <div class="deletion-step">
+            <div class="step-num">3</div>
+            <div><div class="step-title">Tap "Delete Account"</div><div class="step-desc">Scroll to the bottom and tap "Delete Account". You'll be asked to confirm this action.</div></div>
+          </div>
+          <div class="deletion-step">
+            <div class="step-num">4</div>
+            <div><div class="step-title">Confirm Deletion</div><div class="step-desc">All your data — Firestore documents, Firebase Auth record, and local Hive data — will be permanently and immediately deleted.</div></div>
+          </div>
+
+          <div class="callout">
+            <span class="ci">ℹ️</span>
+            <span>If you cannot access the app, email us at <strong>khalidothman2002@gmail.com</strong> with your account email and we will manually delete all your data within 30 days.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Transfers -->
+      <div class="section">
+        <div class="section-title"><span class="icon">🌐</span> International Data Transfers</div>
+        <div class="section-body">
+          <p>FitTrack uses Google Firebase services which may store data on servers located outside your country. Google complies with applicable data transfer frameworks and provides appropriate safeguards.</p>
+          <div class="bullet-group">
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Primary data region: <strong>us-central1</strong> (Iowa, USA)</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>Google Cloud complies with GDPR Standard Contractual Clauses</span></div>
+            <div class="bullet"><span class="bullet-arrow">→</span><span>All transfers are protected by TLS/HTTPS encryption</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <h3>📬 Data Requests?</h3>
+        <p>Want a copy of your data, or have questions about how we store it? Contact us and we'll respond within 30 days.</p>
+        <a href="mailto:khalidothman2002@gmail.com">Contact Us</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>© 2026 LMLT. All rights reserved.</p>
+    <p style="margin-top:6px;">Questions? <a href="mailto:khalidothman2002@gmail.com">khalidothman2002@gmail.com</a></p>
+  </div>
+
+  <script>
+    function showTab(tab, btn) {
+      // Hide all pages
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      // Deactivate all tab buttons
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      // Show selected page
+      document.getElementById('page-' + tab).classList.add('active');
+      // Activate clicked button
+      btn.classList.add('active');
+      // Scroll to top of content
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>
